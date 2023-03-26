@@ -54,6 +54,7 @@ def pool_2(pool_type, rarity):
 def ship_a():
     import os, pathlib
     try:
+        pp = []
         cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
         pp = os.listdir("nonebot-plugin-azurlane-assistant-data")
     except Exception as e:

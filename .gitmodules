@@ -1,0 +1,3 @@
+[submodule "code/nonebot-plugin-azurlane-assistant-data"]
+	path = code/nonebot-plugin-azurlane-assistant-data
+	url = https://github.com/ACGN-Alliance/nonebot-plugin-azurlane-assistant-data

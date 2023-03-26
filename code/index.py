@@ -1,6 +1,8 @@
-from flask import Flask
+from flask import Flask, jsonify
+import json
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 
 @app.route('/')
@@ -14,17 +16,11 @@ def index():
 <body>
 <div class="website">
     <div class="ri-t">
-        <h1>Devsapp</h1>
-        <h2>这是一个 Flask 项目</h2>
-        <span>自豪的通过Serverless Devs进行部署</span>
+        <h1>AzurLane Data</h1>
+        <h2>这是一个使用 Flask 部署的项目</h2>
         <br/>
-        <p>您也可以快速体验： <br/>
-            • 下载Serverless Devs工具：npm install @serverless-devs/s<br/>
-            • 初始化项目：s init start-flask<br/>
-
-            • 项目部署：s deploy<br/>
-            <br/>
-            Serverless Devs 钉钉交流群：33947367
+        <p>
+            交流群：757739422
         </p>
     </div>
 </div>
@@ -32,5 +28,38 @@ def index():
 </html>
 '''
 
+@app.route('/pool/<pool_type>')
+def pool(pool_type):
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    if(cot.get(pool_type) == None):
+        return jsonify({"error": "pool type not found"})
+    return jsonify(cot[pool_type])
+
+@app.route('/pool/<pool_type>/<rarity>')
+def pool_2(pool_type, rarity):
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    if(cot.get(pool_type) == None):
+        return jsonify({"error": "pool type not found"})
+    if(cot[pool_type].get(rarity) == None):
+        return jsonify({"error": "rarity not found"})
+    return jsonify(cot[pool_type][rarity])
+
+@app.route('/ship/t')
+def ship_t():
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    return jsonify(cot["total_num"])
+
+@app.route('/ship/<ship_name>')
+def ship(ship_name):
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    for k in cot["data"]:
+        if(k["name"] == ship_name):
+            return jsonify(k)
+        elif(ship_name in k["alias"]):
+            return jsonify(k)
+        else:
+            continue
+    return jsonify({"error": "未找到船只"})
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9000)
+    app.run(host="127.0.0.1", port=9000)

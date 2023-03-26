@@ -55,9 +55,9 @@ def ship_a():
     import os, pathlib
     try:
         cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
-        os.chdir(pathlib.Path(__file__).parent.absolute())
+        pp = os.listdir("nonebot-plugin-azurlane-assistant-data")
     except Exception as e:
-        return jsonify({"error": str(e), "path": os.listdir()})
+        return jsonify({"error": str(e), "path": os.listdir(), "spath": pp})
     return jsonify(cot["data"])
 
 @app.route('/ship/t')

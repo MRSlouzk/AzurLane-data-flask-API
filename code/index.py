@@ -52,11 +52,18 @@ def pool_2(pool_type, rarity):
 
 @app.route('/ship')
 def ship_a():
-    import os
+    import os, pathlib
     try:
-        cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+        path_lst = []
+        for i in os.listdir("nonebot-plugin-azurlane-assistant-data/"):
+            if(os.path.isdir(i)):
+                path_lst.append(os.listdir(i))
+            else:
+                path_lst.append(i)
+        path = pathlib.Path.cwd().joinpath("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json").resolve(strict=True)
+        cot = json.load(open(path, "r", encoding="utf-8"))
     except Exception as e:
-        return jsonify({"error": str(e), "path": os.listdir("nonebot-plugin-azurlane-assistant-data/")})
+        return jsonify({"error": str(e), "path": path_lst})
     return jsonify(cot["data"])
 
 @app.route('/ship/t')

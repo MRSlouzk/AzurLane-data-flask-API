@@ -28,6 +28,11 @@ def index():
 </html>
 '''
 
+@app.route('/pool')
+def pool_t():
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    return jsonify(cot)
+
 @app.route('/pool/<pool_type>')
 def pool(pool_type):
     cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
@@ -43,6 +48,12 @@ def pool_2(pool_type, rarity):
     if(cot[pool_type].get(rarity) == None):
         return jsonify({"error": "rarity not found"})
     return jsonify(cot[pool_type][rarity])
+
+
+@app.route('/ship')
+def ship_a():
+    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    return jsonify(cot["data"])
 
 @app.route('/ship/t')
 def ship_t():

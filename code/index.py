@@ -52,7 +52,10 @@ def pool_2(pool_type, rarity):
 
 @app.route('/ship')
 def ship_a():
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    try:
+        cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    except Exception as e:
+        return jsonify({"error": str(e)})
     return jsonify(cot["data"])
 
 @app.route('/ship/t')
@@ -73,4 +76,4 @@ def ship(ship_name):
     return jsonify({"error": "未找到船只"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9000)
+    app.run(host="127.0.0.1", port=9000)

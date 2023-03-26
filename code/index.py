@@ -30,19 +30,19 @@ def index():
 
 @app.route('/pool')
 def pool_t():
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
     return jsonify(cot)
 
 @app.route('/pool/<pool_type>')
 def pool(pool_type):
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
     if(cot.get(pool_type) == None):
         return jsonify({"error": "pool type not found"})
     return jsonify(cot[pool_type])
 
 @app.route('/pool/<pool_type>/<rarity>')
 def pool_2(pool_type, rarity):
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
+    cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/pool.json", "r", encoding="utf-8"))
     if(cot.get(pool_type) == None):
         return jsonify({"error": "pool type not found"})
     if(cot[pool_type].get(rarity) == None):
@@ -54,19 +54,19 @@ def pool_2(pool_type, rarity):
 def ship_a():
     import os
     try:
-        cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+        cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
     except Exception as e:
-        return jsonify({"error": str(e), "path": os.listdir("./")})
+        return jsonify({"error": str(e), "path": os.listdir("nonebot-plugin-azurlane-assistant-data/")})
     return jsonify(cot["data"])
 
 @app.route('/ship/t')
 def ship_t():
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
     return jsonify(cot["total_num"])
 
 @app.route('/ship/<ship_name>')
 def ship(ship_name):
-    cot = json.load(open("./nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
+    cot = json.load(open("nonebot-plugin-azurlane-assistant-data/azurlane/ship.json", "r", encoding="utf-8"))
     for k in cot["data"]:
         if(k["name"] == ship_name):
             return jsonify(k)

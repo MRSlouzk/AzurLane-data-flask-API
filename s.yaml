@@ -43,6 +43,8 @@ services:
     #            testKey: testValue
     #      post-deploy: # 在deploy之后运行
     #        - component: fc versions publish # 要运行的命令行
+        - run: git clone https://github.com/ACGN-Alliance/nonebot-plugin-azurlane-assistant-data
+          path: ./code
     props: # 组件的属性值
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
